@@ -22,4 +22,18 @@ public class WaitUtils {
     public WebElement waitForClickable(By locator) {
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
+
+    /**
+     * The Shopify theme slides product cards in with a CSS animation ("animated fadeInUpBig").
+     * Until it ends the cards are not displayed or clickable, so wait for every animation to finish.
+     */
+    public static void waitForAnimations(WebDriver driver) {
+        new WebDriverWait(driver, Duration.ofSeconds(15)).until(d -> {
+            Object done = ((JavascriptExecutor) d).executeScript(
+                    "return document.readyState === 'complete' && "
+                    + "(!document.getAnimations || document.getAnimations()"
+                    + ".every(a => a.playState === 'finished' || a.playState === 'idle'));");
+            return Boolean.TRUE.equals(done);
+        });
+    }
 }

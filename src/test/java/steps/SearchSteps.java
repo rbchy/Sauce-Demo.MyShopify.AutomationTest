@@ -1,6 +1,7 @@
 package steps;
 
 import utils.ConfigReader;
+import utils.WaitUtils;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -89,10 +90,11 @@ public class SearchSteps {
     // -------------------------
 
     @And("I click the first product in search results")
-    public void i_click_the_first_product_in_search_results() throws InterruptedException {
+    public void i_click_the_first_product_in_search_results() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(productCards));
-        driver.findElements(productCards).get(0).click();
-        Thread.sleep(2000);    }
+        WaitUtils.waitForAnimations(driver);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("product-1"))).click();
+    }
 
     @Then("the product details page should be displayed")
     public void the_product_details_page_should_be_displayed() {

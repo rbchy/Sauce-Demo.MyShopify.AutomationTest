@@ -1,6 +1,7 @@
 package steps;
 
 import utils.ConfigReader;
+import utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,8 +43,12 @@ public class AddToCartSteps {
 	 @When("user opens a product")
 	    public void user_opens_a_product() {
 	        // Click the first product on the homepage
-	        WebElement firstProduct = driver.findElement(By.xpath("//*[@id=\"product-1\"]/img"));
+	        WaitUtils.waitForAnimations(driver);
+	        WebElement firstProduct = new WebDriverWait(driver, Duration.ofSeconds(10))
+	                .until(ExpectedConditions.elementToBeClickable(By.id("product-1")));
 	        firstProduct.click();
+	        new WebDriverWait(driver, Duration.ofSeconds(15))
+	                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"product-form\"]/h1")));
 	    }
 	 @Then("the product title, price, and Add to Cart button should be visible")
 	    public void product_details_should_be_visible() {

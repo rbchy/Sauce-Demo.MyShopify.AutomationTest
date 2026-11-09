@@ -20,7 +20,7 @@ Scenario: Search bar is visible and accepts input
   @smoke
   Scenario: Invalid search shows no results message
     Given I am on the home page
-    When I search for "Blue Shade"
+    When I search for "zzqx-no-such-product"
     Then a no results message should be displayed
     And no products should be visible
 

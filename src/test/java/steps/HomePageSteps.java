@@ -1,6 +1,7 @@
 package steps;
 
 import utils.ConfigReader;
+import utils.WaitUtils;
 import hooks.Hooks;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class HomePageSteps {
 
     @And("each product card should be visible")
     public void each_product_card_should_be_visible() {
+        WaitUtils.waitForAnimations(driver);
         List<WebElement> cards = driver.findElements(productCards);
         Assert.assertTrue(cards.size() > 0);
         for (WebElement card : cards) {
@@ -49,6 +51,7 @@ public class HomePageSteps {
     
     @And("product images should be visible")
     public void product_images_should_be_visible() {
+        WaitUtils.waitForAnimations(driver);
         List<WebElement> images = driver.findElements(By.xpath("//section[contains(@class,'product-grid')]//img"));
         
        // Ensure at least one image exists
