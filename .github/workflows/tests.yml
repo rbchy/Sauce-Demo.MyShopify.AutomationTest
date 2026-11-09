@@ -22,6 +22,20 @@ jobs:
           cache: maven
       - name: Run @smoke scenarios
         run: mvn -B --no-transfer-progress clean test -Dheadless=true
+      - name: Summarise failure pages
+        if: failure()
+        run: |
+          python3 - <<'EOF'
+          import glob, re
+          for f in sorted(glob.glob('target/screenshots/*.html')):
+              s = open(f, encoding='utf-8', errors='ignore').read()
+              print('=' * 25, f, s.splitlines()[0])
+              for pat in [r'<img\b[^>]*>', r'<[^>]*id="product[^"]*"[^>]*>', r'<form[^>]*>', r'<h1[^>]*>.*?</h1>',
+                          r'<[^>]*class="[^"]*(?:product|search|result)[^"]*"[^>]*>']:
+                  for m in list(dict.fromkeys(re.findall(pat, s, re.S)))[:12]:
+                      print('  ', re.sub(r'\s+', ' ', m)[:230])
+          EOF
+
       - name: Upload Cucumber report and failure screenshots
         if: always()
         uses: actions/upload-artifact@v4

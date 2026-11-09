@@ -34,7 +34,12 @@ public class Hooks {
 
                 Path dir = Paths.get("target", "screenshots");
                 Files.createDirectories(dir);
-                Files.write(dir.resolve("FAILED_" + scenario.getName().replaceAll("[^A-Za-z0-9-]+", "_") + ".png"), png);
+                String name = "FAILED_" + scenario.getName().replaceAll("[^A-Za-z0-9-]+", "_");
+                Files.write(dir.resolve(name + ".png"), png);
+
+                String html = driver.getPageSource();
+                scenario.attach(html, "text/html", "Page source at failure (" + driver.getCurrentUrl() + ")");
+                Files.writeString(dir.resolve(name + ".html"), "<!-- " + driver.getCurrentUrl() + " -->\n" + html);
             }
         } catch (Exception e) {
             System.err.println("Could not save failure screenshot: " + e.getMessage());
