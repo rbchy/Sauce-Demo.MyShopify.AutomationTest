@@ -1,12 +1,12 @@
 Feature: SauceDemo Login
 
-@smoke
+@smoke @Login
 Scenario: Successful Login
   Given the user is on the login page
   When the user enters valid login credentials
   Then the user should be logged in successfully
 
-@smoke
+@smoke @Login
 Scenario: Logout
   Given the user is on the login page
   When the user enters valid login credentials

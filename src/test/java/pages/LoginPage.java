@@ -1,5 +1,6 @@
 package pages;
 
+import utils.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -16,7 +17,7 @@ public class LoginPage {
     By loginBtn = By.id("login-button");
 
     public void openApp() {
-        driver.get("https://www.saucedemo.com/");
+        driver.get(ConfigReader.get("saucedemo.url"));
     }
 
     public void login(String user, String pass) {

@@ -1,5 +1,6 @@
 package steps;
 
+import utils.ConfigReader;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,7 +19,7 @@ public class SignUpStep {
 
     @Given("the user is on the signup page")
     public void openSignUpPage() {
-        driver.get("https://www.saucedemo.com/"); // Replace with actual signup URL
+        driver.get(ConfigReader.get("saucedemo.url"));
     }
 
     @When("the user enters signup information")

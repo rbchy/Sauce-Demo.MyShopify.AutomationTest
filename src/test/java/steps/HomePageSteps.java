@@ -1,5 +1,6 @@
 package steps;
 
+import utils.ConfigReader;
 import hooks.Hooks;
 
 import java.util.List;
@@ -14,7 +15,6 @@ import io.cucumber.java.en.Then;
 public class HomePageSteps {
     WebDriver driver = Hooks.getDriver();
     // ====== DECLARED LOCATORS ======
-    By homePageUrl = By.xpath("https://sauce-demo.myshopify.com/");
     By leftNavPanel = By.xpath("//*[@id='sidebar']/nav");
     By featuredProductsSection = By.xpath("//section[contains(@class,'product-grid')]");
     By productCards = By.xpath("//section[contains(@class,'product-grid')]//div[contains(@class,'four')]");
@@ -25,7 +25,7 @@ public class HomePageSteps {
   
     @Given("user navigates to the homepage")
     public void user_is_on_the_homepage() {
-        driver.get("https://sauce-demo.myshopify.com/");
+        driver.get(ConfigReader.get("shop.url"));
     }
 
     @Then("left navigation panel should be visible")

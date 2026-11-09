@@ -1,5 +1,6 @@
 package steps;
 
+import utils.ConfigReader;
 import hooks.Hooks;
 
 import org.openqa.selenium.By;
@@ -36,7 +37,7 @@ public class NavigationLinksSteps {
 
     @Given("user is on the homepage")
     public void user_is_on_the_homepage() {
-        driver.get("https://sauce-demo.myshopify.com/");
+        driver.get(ConfigReader.get("shop.url"));
     }
 
     // ---- Catalog ----

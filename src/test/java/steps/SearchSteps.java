@@ -1,5 +1,6 @@
 package steps;
 
+import utils.ConfigReader;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -25,7 +26,7 @@ public class SearchSteps {
     
     @Given("I am on the home page")
     public void i_am_on_the_home_page() {
-        driver.get("https://sauce-demo.myshopify.com/");
+        driver.get(ConfigReader.get("shop.url"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(searchBar));
     }
 

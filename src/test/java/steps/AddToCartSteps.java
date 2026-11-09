@@ -1,5 +1,6 @@
 package steps;
 
+import utils.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,7 +20,7 @@ public class AddToCartSteps {
     WebDriver driver = Hooks.getDriver();
 	@Given("user is on the Home page")
 	public void user_is_on_the_home_page() {
-	    driver.get("https://sauce-demo.myshopify.com/");
+	    driver.get(ConfigReader.get("shop.url"));
 	}
 
 	@When("user navigates to the cart page")

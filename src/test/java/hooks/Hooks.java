@@ -2,27 +2,44 @@ package hooks;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import utils.DriverManager;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Hooks {
 
-    private static WebDriver driver;   // 🔒 keep private
-
     @Before
     public void setup() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        DriverManager.startChrome();
     }
 
-    public static WebDriver getDriver() {   // ✅ ADD THIS
-        return driver;
+    /** Kept so existing step classes keep working; the driver itself lives in DriverManager (per thread). */
+    public static WebDriver getDriver() {
+        return DriverManager.getDriver();
     }
 
     @After
-    public void tearDown() {
-        driver.quit();
+    public void tearDown(Scenario scenario) {
+        WebDriver driver = DriverManager.getDriver();
+        try {
+            if (scenario.isFailed() && driver != null) {
+                byte[] png = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+                scenario.attach(png, "image/png", "FAILED_" + scenario.getName());
+
+                Path dir = Paths.get("target", "screenshots");
+                Files.createDirectories(dir);
+                Files.write(dir.resolve("FAILED_" + scenario.getName().replaceAll("[^A-Za-z0-9-]+", "_") + ".png"), png);
+            }
+        } catch (Exception e) {
+            System.err.println("Could not save failure screenshot: " + e.getMessage());
+        } finally {
+            DriverManager.quitDriver();
+        }
     }
 }

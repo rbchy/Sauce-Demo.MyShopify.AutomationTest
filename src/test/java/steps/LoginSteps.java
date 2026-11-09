@@ -1,5 +1,6 @@
 package steps;
 
+import utils.ConfigReader;
 import hooks.Hooks;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
@@ -19,7 +20,7 @@ public class LoginSteps {
     @Given("the user is on the login page")
     public void openLoginPage() {
 
-        driver.get("https://www.saucedemo.com/");
+        driver.get(ConfigReader.get("saucedemo.url"));
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login-button")));
 
@@ -31,10 +32,10 @@ public class LoginSteps {
     public void enterValidCredentials() {
 
         driver.findElement(By.id("user-name")).clear();
-        driver.findElement(By.id("user-name")).sendKeys("standard_user");
+        driver.findElement(By.id("user-name")).sendKeys(ConfigReader.get("saucedemo.username"));
 
         driver.findElement(By.id("password")).clear();
-        driver.findElement(By.id("password")).sendKeys("secret_sauce");
+        driver.findElement(By.id("password")).sendKeys(ConfigReader.get("saucedemo.password"));
 
         driver.findElement(By.id("login-button")).click();
 
@@ -59,10 +60,10 @@ public class LoginSteps {
     public void enterInvalidCredentials() {
 
         driver.findElement(By.id("user-name")).clear();
-        driver.findElement(By.id("user-name")).sendKeys("wrong_user");
+        driver.findElement(By.id("user-name")).sendKeys(ConfigReader.get("saucedemo.invalid.username"));
 
         driver.findElement(By.id("password")).clear();
-        driver.findElement(By.id("password")).sendKeys("wrong_pass");
+        driver.findElement(By.id("password")).sendKeys(ConfigReader.get("saucedemo.invalid.password"));
 
         driver.findElement(By.id("login-button")).click();
 
