@@ -1,515 +1,286 @@
+<div align="center">
 
-# Sauce Demo Automation — Java + Selenium + Cucumber + TestNG
+# 🛍️ Sauce Demo Shop Automation
 
-![Java](https://img.shields.io/badge/Java-11+-orange?logo=java)
-![Selenium](https://img.shields.io/badge/Selenium-WebDriver-43B02A?logo=selenium)
-![Cucumber](https://img.shields.io/badge/Cucumber-BDD-brightgreen?logo=cucumber)
-![TestNG](https://img.shields.io/badge/TestNG-Runner-red)
-![Maven](https://img.shields.io/badge/Maven-Build-C71A36?logo=apache-maven)
-![Allure](https://img.shields.io/badge/Allure-Reports-yellow)
-![Jenkins](https://img.shields.io/badge/Jenkins-CI%2FCD-D24939?logo=jenkins)
-![License](https://img.shields.io/badge/License-MIT-lightgrey)
+### BDD UI test suite for the Sauce Demo Shopify store and the Sauce Labs login demo
 
-**Author:** Ranajit Baran Chowdhury — Software Programmer & QA Automation Engineer
-**Email:** chyranajit@gmail.com
-**Phone:** +1 (267) 342-5565
-**GitHub:** [@ranajitchowdhury](https://github.com/ranajitchowdhury)
-**Portfolio:** [rbc6543.wixsite.com/rbc-portfolio](https://rbc6543.wixsite.com/rbc-portfolio)
+[![Typing SVG](https://readme-typing-svg.demolab.com/?font=Fira+Code&size=18&pause=1500&color=FFC107&center=true&vCenter=true&width=900&repeat=true&lines=Java+17+%C2%B7+Selenium+4+%C2%B7+Cucumber+7+%C2%B7+TestNG+%C2%B7+Maven;Home+%C2%B7+navigation+%C2%B7+search+%C2%B7+cart+%C2%B7+login+%2F+logout;17+%2F+17+smoke+scenarios+passing)](https://git.io/typing-svg)
 
-A production-grade **BDD test automation framework** for the [Sauce Demo](https://www.saucedemo.com) e-commerce application — built with **Java**, **Selenium WebDriver**, and **Cucumber**, following enterprise-standard architecture principles: Page Object Model, thread-safe driver management, centralized configuration, and rich HTML reporting with embedded failure screenshots.
+<!-- ============ STATUS BAR ============ -->
+![Status](https://img.shields.io/badge/Status-Stable-0d9488?style=for-the-badge&logo=checkmarx&logoColor=white)
+![Pass Rate](https://img.shields.io/badge/Pass%20Rate-100%25%20(17%2F17)-22c55e?style=for-the-badge)
+![Domain](https://img.shields.io/badge/Domain-E--commerce-155e75?style=for-the-badge)
+![Targets](https://img.shields.io/badge/Targets-Shopify%20store%20%C2%B7%20saucedemo.com-1e3a8a?style=for-the-badge&logo=shopify&logoColor=white)
 
-🌐 **Application Under Test:** [saucedemo.com](https://www.saucedemo.com)
+![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Selenium](https://img.shields.io/badge/Selenium-4-43B02A?style=for-the-badge&logo=selenium&logoColor=white)
+![Cucumber](https://img.shields.io/badge/Cucumber-7.18-23D96C?style=for-the-badge&logo=cucumber&logoColor=white)
+![TestNG](https://img.shields.io/badge/TestNG-7.10-FF7F00?style=for-the-badge)
+![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
+
+![Last Commit](https://img.shields.io/github/last-commit/rbchy/Sauce-Demo.MyShopify.AutomationTest?style=flat-square&color=0d9488&label=Last%20commit)
+![Repo Size](https://img.shields.io/github/repo-size/rbchy/Sauce-Demo.MyShopify.AutomationTest?style=flat-square&color=155e75&label=Repo%20size)
+![Top Language](https://img.shields.io/github/languages/top/rbchy/Sauce-Demo.MyShopify.AutomationTest?style=flat-square&color=f59e0b)
+
+</div>
 
 ---
 
-## 📋 Tech Stack
+## 📌 At a Glance
 
-| Layer | Technology | Purpose |
-|-------|-----------|---------|
-| **Language** | Java 11+ | Core automation logic |
-| **Browser Automation** | Selenium WebDriver | Cross-browser UI control |
-| **BDD Framework** | Cucumber (Gherkin) | Human-readable test scenarios |
-| **Test Runner** | TestNG | Suite execution, grouping, parallel support |
-| **Build Tool** | Maven | Dependency management & lifecycle |
-| **CI/CD** | Jenkins / GitHub Actions | Automated build and execution pipeline |
-| **Reporting** | Cucumber HTML + Allure | Rich, interactive test reporting |
-| **Design Pattern** | Page Object Model (POM) | Maintainable, scalable UI abstraction |
-| **Configuration** | Properties File | Zero hardcoded strings, environment-driven |
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**🙋 What this is**
+
+A Cucumber + Selenium smoke suite for two public practice shops:
+
+- 🛍️ **[sauce-demo.myshopify.com](https://sauce-demo.myshopify.com/)** — a Shopify storefront: home page, catalog, blog, About Us, search, product pages and cart
+- 🔐 **[saucedemo.com](https://www.saucedemo.com/)** — Sauce Labs' login demo: sign-in, logout and invalid-credential handling
+
+Scenarios are plain-English Gherkin, backed by **Page Object** classes and run by **TestNG** through Maven.
+
+> *A shop that loads but cannot find, show or cart a product is still broken — smoke tests catch that first.*
+
+</td>
+<td width="50%" valign="top">
+
+**📍 Quick facts**
+
+| | |
+|---|---|
+| 🧪 **Scenarios** | 17 in 6 feature files |
+| ✅ **Latest run** | 17 / 17 passed · 4 m 11 s |
+| 💻 **Run on** | macOS · OpenJDK 21 · Chrome |
+| 🏷️ **Tags** | `@smoke` (all) · `@regression` |
+| 📄 **Report** | [Cucumber report (PDF)](Cucumber.pdf) |
+
+</td>
+</tr>
+</table>
+
+---
+
+## ✅ Latest Results
+
+| Feature file | Site | Scenarios | Result |
+|---|---|---:|---|
+| 🏠 `HomePage.feature` | Shopify store | 1 | ![passed](https://img.shields.io/badge/-1%20passed-22c55e?style=flat-square) |
+| 🧭 `NavigationLinks.feature` | Shopify store | 6 | ![passed](https://img.shields.io/badge/-6%20passed-22c55e?style=flat-square) |
+| 🔎 `SearchFunctionality.feature` | Shopify store | 4 | ![passed](https://img.shields.io/badge/-4%20passed-22c55e?style=flat-square) |
+| 🛒 `AddToCart.feature` | Shopify store | 3 | ![passed](https://img.shields.io/badge/-3%20passed-22c55e?style=flat-square) |
+| 🔐 `LoginSteps.feature` | saucedemo.com | 2 | ![passed](https://img.shields.io/badge/-2%20passed-22c55e?style=flat-square) |
+| 🚫 `SignUp.feature` | saucedemo.com | 1 | ![passed](https://img.shields.io/badge/-1%20passed-22c55e?style=flat-square) |
+| **Total** | | **17** | **100 %** |
+
+<sub>Source: [Cucumber.pdf](Cucumber.pdf) in this repository — cucumber-jvm 7.18.0, OpenJDK 21.0.7, macOS. Both targets are shared public demos, so results depend on their availability.</sub>
+
+---
+
+## 🎯 Test Coverage
+
+<details open>
+<summary><strong>🏠 Home page &amp; 🧭 navigation (Shopify store)</strong></summary>
+
+<br>
+
+- Home page shows the left navigation, featured products, product cards and images, cart and checkout links, and the footer
+- **Catalog** opens the collection page · **Blog** opens the blog
+- **About Us** opens from both the left navigation and the footer
+- **Checkout** link opens the cart · footer **Search** opens the search page
+
+</details>
+
+<details>
+<summary><strong>🔎 Search (Shopify store)</strong></summary>
+
+<br>
+
+| Scenario | Check |
+|---|---|
+| Search bar is visible and accepts input | typed value stays in the field |
+| Valid search — *"Noir Jacket"* | results shown, at least one product |
+| Invalid search — *"Blue Shade"* | "no results" message, no products |
+| Click the first result | product details page opens |
+
+</details>
+
+<details>
+<summary><strong>🛒 Cart (Shopify store)</strong></summary>
+
+<br>
+
+- Cart page loads and shows the empty-cart message
+- Product page shows title, price and **Add to Cart**
+- Adding a product makes the cart show **1 item**
+
+</details>
+
+<details>
+<summary><strong>🔐 Login, logout &amp; invalid credentials (saucedemo.com)</strong></summary>
+
+<br>
+
+- Successful login with the demo user
+- Log out from the menu and return to the login page
+- Invalid username and password show an error message (`@smoke @regression`)
+
+</details>
+
+---
+
+## 🏗️ Framework Architecture
+
+```mermaid
+flowchart LR
+  F["Feature files<br/>(Gherkin)"] --> S["Step definitions<br/>steps/"]
+  S --> P["Page Objects<br/>pages/"]
+  P --> W["Selenium WebDriver<br/>+ WebDriverManager"]
+  W --> C["Chrome"]
+  C --> A["sauce-demo.myshopify.com"]
+  C --> B["saucedemo.com"]
+  H["Hooks<br/>@Before / @After"] -.->|"fresh browser per scenario"| W
+  R["TestRunner<br/>(@smoke)"] --> F
+```
+
+- **Page Object Model** — `LoginPage` and `InventoryPage` (saucedemo.com) and `SignUpPage` (Shopify registration) keep locators and actions out of the steps
+- **Explicit waits** — `WaitUtils` wraps visibility and clickability waits
+- **WebDriverManager** — downloads the matching ChromeDriver; no manual driver path
+- **Hooks** — a clean Chrome session for every scenario, closed afterwards
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology | Version |
+|---|---|---|
+| Language | Java | 17 |
+| Browser automation | Selenium WebDriver | 4.x |
+| Driver management | WebDriverManager | 5.5.3 |
+| BDD | Cucumber JVM (Gherkin) | 7.18.0 |
+| Runner | TestNG (`cucumber-testng`) | 7.10.2 |
+| Build | Maven (Surefire 3.2.5) | — |
+| Reporting | Cucumber HTML + JSON | — |
 
 ---
 
 ## 📁 Project Structure
 
 ```
-Sauce_Demo_Automation_Final/
-│
+Sauce-Demo.MyShopify.AutomationTest/
 ├── src/test/java/
-│   ├── hooks/
-│   │   └── Hooks.java                  ← @Before / @After with screenshot on failure
-│   ├── pages/                          ← Page Object Model classes
-│   │   ├── LoginPage.java
-│   │   ├── DashboardPage.java
-│   │   ├── ProductPage.java
-│   │   ├── CartPage.java
-│   │   └── CheckoutPage.java
-│   ├── stepdefinitions/                ← Cucumber step definition classes
-│   │   ├── CommonSteps.java
-│   │   ├── LoginSteps.java
-│   │   ├── CartSteps.java
-│   │   └── CheckoutSteps.java
-│   ├── runners/
-│   │   └── TestRunner.java             ← TestNG + CucumberOptions runner
+│   ├── base/BaseTest.java              ← shared driver access
+│   ├── hooks/Hooks.java                ← @Before / @After browser lifecycle
+│   ├── pages/
+│   │   ├── LoginPage.java              ← saucedemo.com login
+│   │   ├── SignUpPage.java             ← Shopify account-registration form (not yet used)
+│   │   └── InventoryPage.java          ← saucedemo.com product list, menu, logout
+│   ├── steps/
+│   │   ├── HomePageSteps.java          NavigationLinksSteps.java
+│   │   ├── SearchSteps.java            AddToCartSteps.java
+│   │   ├── LoginSteps.java             LogoutSteps.java
+│   │   └── SignUpStep.java
+│   ├── runner/TestRunner.java          ← TestNG + CucumberOptions (@smoke)
 │   └── utils/
-│       ├── DriverManager.java          ← Thread-safe WebDriver factory
-│       ├── ConfigReader.java           ← config.properties reader
-│       └── ScreenshotUtil.java         ← Failure screenshot capture
-│
-├── src/test/resources/
-│   ├── features/                       ← Gherkin BDD feature files
-│   │   ├── Login.feature
-│   │   ├── ProductSorting.feature
-│   │   ├── CartCheckout.feature
-│   │   ├── SmokeTests.feature
-│   │   └── RegressionTests.feature
-│   └── config/
-│       └── config.properties           ← URL, credentials, browser, timeouts
-│
-├── target/
-│   └── cucumber-reports/
-│       └── Sauce DemoCucumberFinalReport.html   ← Auto-generated HTML report
-│
-├── reports/
-│   ├── allure-results/                 ← Allure raw data
-│   └── screenshots/                    ← Failure screenshots (auto-saved)
-│
-├── pom.xml                             ← Maven dependencies & plugins
-├── testng.xml                          ← TestNG suite configuration
-├── Jenkinsfile                         ← CI/CD pipeline definition
-└── README.md
+│       ├── DriverManager.java          ← ThreadLocal driver holder
+│       └── WaitUtils.java              ← explicit waits
+├── src/test/resources/features/        ← 6 feature files, 17 scenarios
+├── Cucumber.pdf                        ← latest run (17 / 17 passed)
+├── pom.xml
+└── testng.xml
 ```
 
 ---
 
-## ✨ Framework Features
+## ⚙️ Getting Started
 
-| Feature | Description |
-|---------|-------------|
-| ✅ BDD with Cucumber | Gherkin syntax — readable by QA, developers, and business owners |
-| ✅ Page Object Model | Locators and actions encapsulated per page — single point of maintenance |
-| ✅ Thread-Safe Driver | `ThreadLocal<WebDriver>` — parallel-execution ready |
-| ✅ Screenshot on Failure | Auto-captured and embedded directly into Cucumber HTML report |
-| ✅ Centralized Config | Zero hardcoded strings — all config driven via `config.properties` |
-| ✅ Rich HTML Report | Step timings, parameter tables, failure logs, screenshots — all in one file |
-| ✅ CI/CD Ready | Jenkins + GitHub Actions pipeline examples included |
-| ✅ Tag-Based Execution | Run smoke, regression, or any subset with `@tags` |
+**Prerequisites:** JDK 17+ · Maven 3.8+ · Google Chrome · Git
 
----
-
-## 🎯 Test Coverage
-
-### 🔐 Login & Authentication
-- Valid login with `standard_user`
-- Invalid login — error message validation
-- Locked-out user handling
-- Logout and session termination
-
-### 🛒 Product & Cart
-- Add single and multiple products to cart
-- Remove product from cart
-- Cart badge count validation
-- Product sorting — Name (A→Z, Z→A), Price (Low→High, High→Low)
-
-### 💳 Checkout Flow
-- Complete checkout with valid details
-- Form validation (first name, last name, zip code)
-- Order summary verification
-- Purchase confirmation
-
-### 🚀 Smoke Tests
-- Application launch and home page load
-- Login → Dashboard navigation
-- Cart icon visibility and badge update
-
-### 🔄 Regression Tests
-- End-to-end purchase flow
-- Multi-product cart and total price validation
-- Sorting filter persistence
-
----
-
-## ✅ Prerequisites
-
-- ✅ **JDK 11 or higher** — configured in system PATH
-- ✅ **Maven 3.8+** — installed and configured
-- ✅ **Chrome / Firefox** — latest stable version
-- ✅ **ChromeDriver / GeckoDriver** — matching browser version (or use WebDriverManager)
-- ✅ **IDE** — IntelliJ IDEA or Eclipse
-- ✅ **Git** — for cloning the repository
-
----
-
-## ⚙️ Installation & Setup
-
-**1. Clone the repository:**
 ```bash
-git clone https://github.com/ranajitchowdhury/Sauce_Demo_Automation_Final.git
-cd Sauce_Demo_Automation_Final
-```
-
-**2. Install all dependencies:**
-```bash
+git clone https://github.com/rbchy/Sauce-Demo.MyShopify.AutomationTest.git
+cd Sauce-Demo.MyShopify.AutomationTest
 mvn clean install -DskipTests
 ```
 
-**3. Configure `src/test/resources/config/config.properties`:**
-```properties
-app.url=https://www.saucedemo.com
-browser=chrome
-headless=false
-implicit.wait=10
-page.load.timeout=30
-valid.username=standard_user
-valid.password=secret_sauce
-locked.username=locked_out_user
-```
-
 ---
 
-## ▶️ Running Tests
+## ▶️ Running the Tests
 
-### Run full test suite
 ```bash
+# All @smoke scenarios (the runner's default)
 mvn clean test
+
+# Through the TestNG suite file
+mvn clean test -DsuiteXmlFile=testng.xml
+
+# A single tag expression
+mvn clean test -Dcucumber.filter.tags="@regression"
 ```
 
-### Run Smoke tests only
-```bash
-mvn test -Dcucumber.filter.tags="@smoke"
-```
+**From the IDE:** right-click `runner/TestRunner.java` or `testng.xml` → **Run As › TestNG Test**.
 
-### Run Regression tests only
-```bash
-mvn test -Dcucumber.filter.tags="@regression"
-```
+Reports are written after each run to:
 
-### Run Login tests only
-```bash
-mvn test -Dcucumber.filter.tags="@Login"
-```
-
-### Run in headless mode (CI/CD environments)
-```bash
-mvn test -Dheadless=true
-```
-
-### Run with specific TestNG suite
-```bash
-mvn test -DsuiteXmlFile=testng.xml
-```
+| File | Format |
+|---|---|
+| `target/cucumber-reports/SauceDemoCucumberFinalReport.html` | Cucumber HTML report |
+| `target/cucumber-reports/SauceDemoCucumberFinalReport.json` | JSON, for CI plugins |
 
 ---
 
-## 📊 Reports
+## 🔍 Review Notes
 
-### Cucumber HTML Report
-Auto-generated after every run:
-```
-target/cucumber-reports/Sauce DemoCucumberFinalReport.html
-```
-
-Open in browser:
-```bash
-open "target/cucumber-reports/Sauce DemoCucumberFinalReport.html"
-```
-
-**Report includes:**
-- ✅ / ❌ Step-level pass/fail status
-- ⏱️ Step timing breakdown
-- 📊 Parameter data tables
-- 📸 Embedded failure screenshots
-- 🏷️ Tag and scenario filtering
-
-### Allure Report
-```bash
-mvn allure:serve
-```
+| # | Item | Suggestion |
+|---|---|---|
+| 1 | `pom.xml` lists `selenium-java` twice (4.21.0 and 4.14.0) and `cucumber-java` twice | Keep one of each; Maven silently picks one today |
+| 2 | Both `cucumber-testng` and `cucumber-junit` + JUnit 4 are declared | The runner uses TestNG; JUnit can go |
+| 3 | `Hooks` stores the driver in a `static` field while `DriverManager` offers a `ThreadLocal` | Use `DriverManager` in Hooks to make parallel runs safe |
+| 4 | URLs are written in the step classes | Move them to a `config.properties` |
+| 5 | No screenshot on failure, no headless switch | Attach a screenshot in `@After`; read `-Dheadless=true` |
+| 6 | `SignUp.feature` tests an invalid login, while `SignUpPage` models the Shopify registration form | Rename the feature, or add a real Shopify sign-up scenario |
 
 ---
 
-## 📸 Screenshot & Failure Handling
+## 📈 Roadmap
 
-The framework implements a dynamic context listener hook that captures full-page screenshots automatically on any step failure and embeds them directly into the HTML report.
-
-```java
-// Hooks.java
-@After
-public void tearDown(Scenario scenario) {
-    if (scenario.isFailed()) {
-        // Capture full-page screenshot
-        byte[] screenshot = ((TakesScreenshot) DriverManager.getDriver())
-            .getScreenshotAs(OutputType.BYTES);
-
-        // Embed in Cucumber HTML report
-        scenario.attach(screenshot, "image/png", "FAILED_" + scenario.getName());
-
-        // Save to file system
-        String path = "reports/screenshots/FAILED_"
-            + scenario.getName().replaceAll("\\s+", "_") + ".png";
-        FileUtils.writeByteArrayToFile(new File(path), screenshot);
-        System.out.println("📸 Screenshot saved: " + path);
-    }
-    DriverManager.quitDriver();
-}
-```
-
-**Failure outputs:**
-- 📸 Full-page screenshot embedded in HTML report
-- 🗂️ Screenshot saved to `reports/screenshots/FAILED_<ScenarioName>.png`
-- 📋 Stack trace and step context captured in report
-- 🔍 Failure reason visible without re-running tests
+- [ ] Clean up `pom.xml` duplicates (see review notes)
+- [ ] `config.properties` for URLs and the demo credentials
+- [ ] Screenshot on failure embedded in the Cucumber report
+- [ ] Headless mode and a GitHub Actions workflow running the suite on every push
+- [ ] saucedemo.com shopping flow: sort, cart badge, checkout, order confirmation
+- [ ] Parallel scenarios through the `ThreadLocal` driver
 
 ---
 
-## 🔧 Centralized Configuration Engine
+## 🔗 Related Projects
 
-Zero hardcoded strings. All environments, URLs, credentials, and timeouts are driven via `config.properties`:
+| Project | Stack |
+|---|---|
+| ⭐ [RbcTcsWorld E-Commerce Suite](https://github.com/rbchy/RbcTcsWorld_ECommerceSuite) | Spring Boot · REST Assured · Selenium · Playwright · CI quality gates |
+| 🔌 [API — Rest Assured](https://github.com/rbchy/QaBrainsAPIAutomationRestAssured) | Java · Rest Assured · Cucumber · Selenium — CI green |
+| ☁️ [Sauce Labs Cloud Automation](https://github.com/rbchy/QaBrainsSauceLabAPI_Automation) | Java · Selenium · Cucumber · Sauce Labs |
+| 🏥 [OpenEMR Healthcare](https://github.com/rbchy/OpenEMR_Automation) | Java · Selenium · Cucumber · TestNG |
 
-```java
-// ConfigReader.java
-public class ConfigReader {
-    private static Properties prop = new Properties();
-
-    static {
-        try (FileInputStream fis = new FileInputStream(
-                "src/test/resources/config/config.properties")) {
-            prop.load(fis);
-        } catch (IOException e) {
-            throw new RuntimeException("❌ Config file not found!", e);
-        }
-    }
-
-    public static String get(String key) {
-        return prop.getProperty(key);
-    }
-}
-```
-
-Usage in Page classes:
-```java
-driver.get(ConfigReader.get("app.url"));
-```
-
----
-
-## 🔄 CI/CD Integration
-
-### Jenkins Pipeline
-
-```groovy
-pipeline {
-    agent any
-
-    tools {
-        maven 'Maven 3.8'
-        jdk 'JDK 11'
-    }
-
-    stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/ranajitchowdhury/Sauce_Demo_Automation_Final.git'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'mvn clean install -DskipTests'
-            }
-        }
-
-        stage('Execute Tests') {
-            steps {
-                sh 'mvn test -Dheadless=true -Dcucumber.filter.tags="@smoke or @regression"'
-            }
-        }
-
-        stage('Publish Reports') {
-            steps {
-                cucumber buildStatus: 'UNSTABLE',
-                         fileIncludePattern: '**/cucumber.json',
-                         reportTitle: 'Sauce Demo Report'
-
-                allure([results: [[path: 'target/allure-results']]])
-            }
-        }
-    }
-
-    post {
-        failure {
-            emailext(
-                subject: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: "Tests failed. Review report: ${env.BUILD_URL}cucumber-html-reports",
-                to: 'chyranajit@gmail.com'
-            )
-        }
-        success {
-            emailext(
-                subject: "✅ PASSED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: "All tests passed. Report: ${env.BUILD_URL}cucumber-html-reports",
-                to: 'chyranajit@gmail.com'
-            )
-        }
-    }
-}
-```
-
-### GitHub Actions
-
-```yaml
-name: Sauce Demo Automation
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  schedule:
-    - cron: '0 8 * * 1-5'    # Mon–Fri 8 AM UTC
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-
-      - name: Install dependencies
-        run: mvn clean install -DskipTests
-
-      - name: Run Smoke Tests
-        run: mvn test -Dheadless=true -Dcucumber.filter.tags="@smoke"
-
-      - name: Run Regression Tests
-        run: mvn test -Dheadless=true -Dcucumber.filter.tags="@regression"
-
-      - name: Upload Cucumber Report
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: cucumber-report
-          path: target/cucumber-reports/
-
-      - name: Upload Failure Screenshots
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: failure-screenshots
-          path: reports/screenshots/
-```
-
----
-
-## 🏷️ Tags
-
-| Tag | Description |
-|-----|-------------|
-| `@smoke` | Critical path — fast build verification |
-| `@regression` | Full regression test suite |
-| `@Login` | Login and authentication scenarios |
-| `@Cart` | Cart add, remove, and validation |
-| `@Checkout` | End-to-end purchase flow |
-| `@Sorting` | Product sorting and filter validation |
-
----
-
-## 🏗️ Framework Architecture
-
-```
-Feature Files (Gherkin)
-        ↓
-Step Definitions (stepdefinitions/)
-        ↓
-Page Object Model (pages/)
-        ↓
-DriverManager (ThreadLocal WebDriver)
-        ↓
-Selenium WebDriver → Chrome / Firefox
-        ↓
-Sauce Demo Application (saucedemo.com)
-        ↓
-Cucumber HTML Report + Allure Report
-        ↓
-Jenkins / GitHub Actions Notification
-```
-
-### Senior QA Architecture Decisions
-
-- **`ThreadLocal<WebDriver>`** — enables safe parallel execution without driver conflicts
-- **Zero hardcoded strings** — `ConfigReader` makes the framework portable across environments (dev, staging, prod)
-- **Centralised Hooks** — single `@Before`/`@After` prevents duplicate browser opens in multi-step scenarios
-- **Embedded screenshots** — failures are self-documenting; no manual re-run needed to diagnose issues
-- **Tag-based execution** — smoke, regression, or feature-specific runs without code changes
-
----
-
-## 📈 Future Enhancements
-
-- [ ] Docker containerization — isolated, reproducible test environments
-- [ ] Parallel execution — TestNG `parallel="scenarios"` across multiple browsers
-- [ ] BrowserStack integration — mobile and cross-browser cloud testing
-- [ ] REST Assured API layer — backend contract validation alongside UI tests
-- [ ] Database validation — JDBC assertions for data integrity testing
-- [ ] AI-assisted test generation — auto-generate step definitions from feature files
-
----
-
-## 🌟 Why This Framework?
-
-| Strength | Detail |
-|----------|--------|
-| ✅ Industry-standard design | POM + BDD + Hooks — enterprise QA architecture |
-| ✅ Easy to maintain | One locator change in the Page class fixes all tests |
-| ✅ Self-documenting failures | Screenshots embedded in report — no guesswork |
-| ✅ Readable scenarios | Gherkin understood by QA, devs, and product managers |
-| ✅ Environment-agnostic | Switch URL and credentials in config — no code changes |
-| ✅ CI/CD compatible | Jenkins, GitHub Actions, AWS Pipeline examples included |
-| ✅ Parallel-ready | ThreadLocal driver prepares for concurrent execution |
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your branch: `git checkout -b feature/improvement`
-3. Write tests following the existing POM structure
-4. Run `mvn test` to verify no regressions
-5. Commit: `git commit -m 'Add improvement'`
-6. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is open-source under the **MIT License**.
+<sub>All projects: [github.com/rbchy](https://github.com/rbchy)</sub>
 
 ---
 
 ## 👤 Author
 
-**Ranajit Baran Chowdhury**
-Software Programmer & QA Automation Engineer
-- 📧 Email: chyranajit@gmail.com
-- 📞 Phone: +1 (267) 342-5565
-- 🐙 GitHub: [@ranajitchowdhury](https://github.com/rbchy)
-- 🌐 Portfolio: [rbc6543.wixsite.com/rbc-portfolio](https://rbc6543.wixsite.com/rbc-portfolio)
-- 💼 LinkedIn: [linkedin.com/in/ranajitchowdhury](https://linkedin.com/in/ranajitchowdhury)
+<div align="center">
 
----
+**Ranajit Baran Chowdhury (RB Chowdhury)**
+QA Automation Engineer / SDET · West Norriton, Pennsylvania, USA
 
-**Version:** 1.0.0 | **Last Updated:** May 2026
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/rbchy/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rbchy)
+[![Website](https://img.shields.io/badge/Website-rbchy.github.io%2Frbchy-0d9488?style=for-the-badge&logo=githubpages&logoColor=white)](https://rbchy.github.io/rbchy/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Website-blueviolet?style=for-the-badge&logo=wix&logoColor=white)](https://rbc6543.wixsite.com/rbc-portfolio)
+[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:chyranajit@gmail.com)
+
+<sub>Provided for educational and professional QA automation purposes. Both target sites are public practice demos.</sub>
+
+⭐ *If this project helps you, a star on the repo is appreciated.*
+
+</div>
