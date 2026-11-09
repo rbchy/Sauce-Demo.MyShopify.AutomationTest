@@ -4,10 +4,10 @@
 
 ### BDD UI test suite for the Sauce Demo Shopify store and the Sauce Labs login demo
 
-[![Typing SVG](https://readme-typing-svg.demolab.com/?font=Fira+Code&size=18&pause=1500&color=FFC107&center=true&vCenter=true&width=900&repeat=true&lines=Java+17+%C2%B7+Selenium+4+%C2%B7+Cucumber+7+%C2%B7+TestNG+%C2%B7+Maven;Home+%C2%B7+navigation+%C2%B7+search+%C2%B7+cart+%C2%B7+login+%2F+logout;17+%2F+17+smoke+scenarios+passing)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com/?font=Fira+Code&size=18&pause=1500&color=FFC107&center=true&vCenter=true&width=900&repeat=true&lines=Java+17+%C2%B7+Selenium+4+%C2%B7+Cucumber+7+%C2%B7+TestNG+%C2%B7+Maven;Home+%C2%B7+navigation+%C2%B7+search+%C2%B7+cart+%C2%B7+login+%2F+logout;17+%2F+17+scenarios+passing+in+GitHub+Actions)](https://git.io/typing-svg)
 
 <!-- ============ STATUS BAR ============ -->
-![Status](https://img.shields.io/badge/Status-Stable-0d9488?style=for-the-badge&logo=checkmarx&logoColor=white)
+[![Tests](https://github.com/rbchy/Sauce-Demo.MyShopify.AutomationTest/actions/workflows/tests.yml/badge.svg)](https://github.com/rbchy/Sauce-Demo.MyShopify.AutomationTest/actions/workflows/tests.yml)
 ![Pass Rate](https://img.shields.io/badge/Pass%20Rate-100%25%20(17%2F17)-22c55e?style=for-the-badge)
 ![Domain](https://img.shields.io/badge/Domain-E--commerce-155e75?style=for-the-badge)
 ![Targets](https://img.shields.io/badge/Targets-Shopify%20store%20%C2%B7%20saucedemo.com-1e3a8a?style=for-the-badge&logo=shopify&logoColor=white)
@@ -51,9 +51,9 @@ Scenarios are plain-English Gherkin, backed by **Page Object** classes and run b
 | | |
 |---|---|
 | 🧪 **Scenarios** | 17 in 6 feature files |
-| ✅ **Latest run** | 17 / 17 passed · 4 m 11 s |
-| 💻 **Run on** | macOS · OpenJDK 21 · Chrome |
-| 🏷️ **Tags** | `@smoke` (all) · `@regression` |
+| ✅ **CI** | 17 / 17 · headless Chrome · every push |
+| 💻 **Local** | 17 / 17 · macOS · OpenJDK 21 |
+| 🏷️ **Tags** | `@smoke` (all) · `@Login` · `@regression` |
 | 📄 **Report** | [Cucumber report (PDF)](Cucumber.pdf) |
 
 </td>
@@ -64,6 +64,8 @@ Scenarios are plain-English Gherkin, backed by **Page Object** classes and run b
 
 ## ✅ Latest Results
 
+Every push runs the whole suite in **GitHub Actions** with headless Chrome ([workflow](.github/workflows/tests.yml)); the report and any failure screenshots are uploaded as a build artifact.
+
 | Feature file | Site | Scenarios | Result |
 |---|---|---:|---|
 | 🏠 `HomePage.feature` | Shopify store | 1 | ![passed](https://img.shields.io/badge/-1%20passed-22c55e?style=flat-square) |
@@ -71,10 +73,10 @@ Scenarios are plain-English Gherkin, backed by **Page Object** classes and run b
 | 🔎 `SearchFunctionality.feature` | Shopify store | 4 | ![passed](https://img.shields.io/badge/-4%20passed-22c55e?style=flat-square) |
 | 🛒 `AddToCart.feature` | Shopify store | 3 | ![passed](https://img.shields.io/badge/-3%20passed-22c55e?style=flat-square) |
 | 🔐 `LoginSteps.feature` | saucedemo.com | 2 | ![passed](https://img.shields.io/badge/-2%20passed-22c55e?style=flat-square) |
-| 🚫 `SignUp.feature` | saucedemo.com | 1 | ![passed](https://img.shields.io/badge/-1%20passed-22c55e?style=flat-square) |
+| 🚫 `InvalidLogin.feature` | saucedemo.com | 1 | ![passed](https://img.shields.io/badge/-1%20passed-22c55e?style=flat-square) |
 | **Total** | | **17** | **100 %** |
 
-<sub>Source: [Cucumber.pdf](Cucumber.pdf) in this repository — cucumber-jvm 7.18.0, OpenJDK 21.0.7, macOS. Both targets are shared public demos, so results depend on their availability.</sub>
+<sub>CI: GitHub Actions, Ubuntu, Temurin 17, headless Chrome (32.5 s). Local: [Cucumber.pdf](Cucumber.pdf) — cucumber-jvm 7.18.0, OpenJDK 21.0.7, macOS. Both targets are shared public demos, so results depend on their availability.</sub>
 
 ---
 
@@ -101,7 +103,7 @@ Scenarios are plain-English Gherkin, backed by **Page Object** classes and run b
 |---|---|
 | Search bar is visible and accepts input | typed value stays in the field |
 | Valid search — *"Noir Jacket"* | results shown, at least one product |
-| Invalid search — *"Blue Shade"* | "no results" message, no products |
+| Invalid search — *"zzqx-no-such-product"* | "no results" message, no products |
 | Click the first result | product details page opens |
 
 </details>
@@ -140,14 +142,17 @@ flowchart LR
   W --> C["Chrome"]
   C --> A["sauce-demo.myshopify.com"]
   C --> B["saucedemo.com"]
-  H["Hooks<br/>@Before / @After"] -.->|"fresh browser per scenario"| W
+  H["Hooks<br/>@Before / @After"] -.->|"fresh browser per scenario ·<br/>screenshot + HTML on failure"| W
   R["TestRunner<br/>(@smoke)"] --> F
+  CF["config.properties<br/>URLs · demo users · headless"] -.-> S
 ```
 
 - **Page Object Model** — `LoginPage` and `InventoryPage` (saucedemo.com) and `SignUpPage` (Shopify registration) keep locators and actions out of the steps
-- **Explicit waits** — `WaitUtils` wraps visibility and clickability waits
+- **Thread-safe driver** — `DriverManager` keeps one `WebDriver` per thread (`ThreadLocal`), ready for parallel scenarios
+- **Config, not code** — site URLs and the public demo accounts live in `config.properties`, read by `ConfigReader`; any value can be overridden with `-Dkey=value`
+- **Explicit waits** — `WaitUtils` waits for visibility, clickability and for the store's product slide-in animation to finish
+- **Failure evidence** — a failed scenario gets a screenshot and the page HTML in the Cucumber report, also saved to `target/screenshots/`
 - **WebDriverManager** — downloads the matching ChromeDriver; no manual driver path
-- **Hooks** — a clean Chrome session for every scenario, closed afterwards
 
 ---
 
@@ -161,7 +166,8 @@ flowchart LR
 | BDD | Cucumber JVM (Gherkin) | 7.18.0 |
 | Runner | TestNG (`cucumber-testng`) | 7.10.2 |
 | Build | Maven (Surefire 3.2.5) | — |
-| Reporting | Cucumber HTML + JSON | — |
+| Reporting | Cucumber HTML + JSON, failure screenshots | — |
+| CI | GitHub Actions (headless Chrome) | — |
 
 ---
 
@@ -170,8 +176,8 @@ flowchart LR
 ```
 Sauce-Demo.MyShopify.AutomationTest/
 ├── src/test/java/
-│   ├── base/BaseTest.java              ← shared driver access
-│   ├── hooks/Hooks.java                ← @Before / @After browser lifecycle
+│   ├── base/BaseTest.java              ← compatibility access to the driver
+│   ├── hooks/Hooks.java                ← browser per scenario; screenshot + HTML on failure
 │   ├── pages/
 │   │   ├── LoginPage.java              ← saucedemo.com login
 │   │   ├── SignUpPage.java             ← Shopify account-registration form (not yet used)
@@ -180,12 +186,16 @@ Sauce-Demo.MyShopify.AutomationTest/
 │   │   ├── HomePageSteps.java          NavigationLinksSteps.java
 │   │   ├── SearchSteps.java            AddToCartSteps.java
 │   │   ├── LoginSteps.java             LogoutSteps.java
-│   │   └── SignUpStep.java
+│   │   └── SignUpStep.java             ← Shopify sign-up steps (not used by a scenario yet)
 │   ├── runner/TestRunner.java          ← TestNG + CucumberOptions (@smoke)
 │   └── utils/
-│       ├── DriverManager.java          ← ThreadLocal driver holder
-│       └── WaitUtils.java              ← explicit waits
-├── src/test/resources/features/        ← 6 feature files, 17 scenarios
+│       ├── DriverManager.java          ← ThreadLocal driver, Chrome options, headless switch
+│       ├── ConfigReader.java           ← config.properties + -D overrides
+│       └── WaitUtils.java              ← explicit waits, animation wait
+├── src/test/resources/
+│   ├── config.properties               ← URLs, public demo accounts, headless
+│   └── features/                       ← 6 feature files, 17 scenarios
+├── .github/workflows/tests.yml         ← runs the suite headless on every push
 ├── Cucumber.pdf                        ← latest run (17 / 17 passed)
 ├── pom.xml
 └── testng.xml
@@ -214,8 +224,11 @@ mvn clean test
 # Through the TestNG suite file
 mvn clean test -DsuiteXmlFile=testng.xml
 
+# Headless (what CI runs)
+mvn clean test -Dheadless=true
+
 # A single tag expression
-mvn clean test -Dcucumber.filter.tags="@regression"
+mvn clean test -Dcucumber.filter.tags="@Login"
 ```
 
 **From the IDE:** right-click `runner/TestRunner.java` or `testng.xml` → **Run As › TestNG Test**.
@@ -226,30 +239,32 @@ Reports are written after each run to:
 |---|---|
 | `target/cucumber-reports/SauceDemoCucumberFinalReport.html` | Cucumber HTML report |
 | `target/cucumber-reports/SauceDemoCucumberFinalReport.json` | JSON, for CI plugins |
+| `target/screenshots/FAILED_<scenario>.png` / `.html` | Screenshot and page HTML of a failed scenario |
 
 ---
 
-## 🔍 Review Notes
+## 🧹 Maintenance Log
 
-| # | Item | Suggestion |
-|---|---|---|
-| 1 | `pom.xml` lists `selenium-java` twice (4.21.0 and 4.14.0) and `cucumber-java` twice | Keep one of each; Maven silently picks one today |
-| 2 | Both `cucumber-testng` and `cucumber-junit` + JUnit 4 are declared | The runner uses TestNG; JUnit can go |
-| 3 | `Hooks` stores the driver in a `static` field while `DriverManager` offers a `ThreadLocal` | Use `DriverManager` in Hooks to make parallel runs safe |
-| 4 | URLs are written in the step classes | Move them to a `config.properties` |
-| 5 | No screenshot on failure, no headless switch | Attach a screenshot in `@After`; read `-Dheadless=true` |
-| 6 | `SignUp.feature` tests an invalid login, while `SignUpPage` models the Shopify registration form | Rename the feature, or add a real Shopify sign-up scenario |
+| Change | Why |
+|---|---|
+| `pom.xml`: one `selenium-java` and one `cucumber-java`; `cucumber-junit` and JUnit 4 removed | Duplicates let Maven pick versions silently; the runner is TestNG |
+| `DriverManager` owns a `ThreadLocal` driver; `Hooks` and `BaseTest` use it | Parallel-safe; no static driver shared between scenarios |
+| `config.properties` + `ConfigReader` | URLs and demo accounts out of the step code |
+| Screenshot + page HTML on failure; `-Dheadless=true` | Failures explain themselves, in CI too |
+| `SignUp.feature` → `InvalidLogin.feature` | The scenario tests an invalid login |
+| Wait for the product slide-in animation | Fast headless runs clicked product cards mid-animation |
+| Invalid-search term `"Blue Shade"` → `"zzqx-no-such-product"` | The store's fuzzy search now matches *Brown Shades* |
 
 ---
 
 ## 📈 Roadmap
 
-- [ ] Clean up `pom.xml` duplicates (see review notes)
-- [ ] `config.properties` for URLs and the demo credentials
-- [ ] Screenshot on failure embedded in the Cucumber report
-- [ ] Headless mode and a GitHub Actions workflow running the suite on every push
+- [x] Clean `pom.xml`, thread-safe driver, `config.properties`
+- [x] Screenshot on failure, headless mode, GitHub Actions
 - [ ] saucedemo.com shopping flow: sort, cart badge, checkout, order confirmation
-- [ ] Parallel scenarios through the `ThreadLocal` driver
+- [ ] A real Shopify sign-up scenario for `SignUpPage` / `SignUpStep`
+- [ ] Parallel scenarios (`@DataProvider(parallel = true)`)
+- [ ] Allure report published to GitHub Pages
 
 ---
 
